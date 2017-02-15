@@ -1,5 +1,7 @@
 package com.sample.resourse;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -16,8 +18,9 @@ import com.sample.model.Shop;
 public class Application {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
-
+	public static ArrayList<Shop> shops = null;
 	public static void main(String args[]) {
+		shops = new ArrayList<Shop>();
 		SpringApplication.run(Application.class);
 		//SpringApplication.run(MainController.class, args);
 	}
