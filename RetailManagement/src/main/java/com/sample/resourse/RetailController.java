@@ -52,6 +52,7 @@ public class RetailController {
 			while ((output = br.readLine()) != null) {
 			    System.out.println(output);
 			    full += output;
+			}
 //			Gson gson = new Gson().fromJson(full, PincodeVerify.class); 
 //			response = new IsPincodeSupportedResponse(new PincodeVerifyConcrete(
 //			        gson.getResults().get(0).getFormatted_address(), 
