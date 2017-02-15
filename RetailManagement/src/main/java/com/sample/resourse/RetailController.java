@@ -26,45 +26,46 @@ public class RetailController {
 	@RequestMapping(path = { "/shop" }, method = { RequestMethod.GET })
 	@ResponseBody
 	List<Shop> getShops() {
-		List<Shop> shops = null;
-		return shops;
+		return Application.shops;
 	}
 
 	@RequestMapping(path = { "/addshop" }, method = { RequestMethod.POST })
 	@ResponseBody
 	void addShop(@RequestBody Shop shop) {
 		Integer address = shop.getShopAddress().getPostCode();
+		HttpURLConnection httpConnection= null;
 		int responseCode = 0;
 		try {
 			String api = "http://maps.googleapis.com/maps/api/geocode/xml?address="
 					+ URLEncoder.encode(address.toString(), "UTF-8") + "&sensor=true";
 			URL url;
 			url = new URL(api);
-			HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
-			httpConnection.connect();
+			httpConnection = (HttpURLConnection) url.openConnection();
 			httpConnection.setRequestProperty("Accept", "application/json");
-
+			httpConnection.connect();
 			if (httpConnection.getResponseCode() != 200) {
-			    throw new RuntimeException("Failed : HTTP error code : " + httpConnection.getResponseCode());
+				throw new RuntimeException("Failed : HTTP error code : " + httpConnection.getResponseCode());
 			}
 			BufferedReader br = new BufferedReader(new InputStreamReader((httpConnection.getInputStream())));
 			String output = "", full = "";
 			while ((output = br.readLine()) != null) {
-			    System.out.println(output);
-			    full += output;
+				System.out.println(output);
+				full += output;
 			}
-//			Gson gson = new Gson().fromJson(full, PincodeVerify.class); 
-//			response = new IsPincodeSupportedResponse(new PincodeVerifyConcrete(
-//			        gson.getResults().get(0).getFormatted_address(), 
-//			        gson.getResults().get(0).getGeometry().getLocation().getLat(),
-//			        gson.getResults().get(0).getGeometry().getLocation().getLng())) ;
 			
+			// Gson gson = new Gson().fromJson(full, PincodeVerify.class);
+			// response = new IsPincodeSupportedResponse(new
+			// PincodeVerifyConcrete(
+			// gson.getResults().get(0).getFormatted_address(),
+			// gson.getResults().get(0).getGeometry().getLocation().getLat(),
+			// gson.getResults().get(0).getGeometry().getLocation().getLng())) ;
+
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			httpConnection.disconnect();
 		}
 		Application.shops.add(shop);
 	}
