@@ -21,18 +21,24 @@ public class Application {
 	public static ArrayList<Shop> shops = null;
 	public static void main(String args[]) {
 		shops = new ArrayList<Shop>();
-		Shop shop = new Shop();
-		Address add = new Address();
-		add.setNumber(1);
-		add.setPostCode(111057);
-		shop.setLatitude(11111);
-		shop.setLongitude(22222);
-		shop.setShopAddress(add);
-		shop.setShopName("shop1");
+		Application.addDummyShops();
 		SpringApplication.run(Application.class, args);
-		shops.add(shop);
 	}
 	
+	private static void addDummyShops() {
+		for(int i=0; i<=5; i++){
+			Shop shop = new Shop();
+			Address add = new Address();
+			add.setNumber(i);
+			add.setPostCode(111057+i);
+			shop.setLatitude(11111+i);
+			shop.setLongitude(22222+i);
+			shop.setShopAddress(add);
+			shop.setShopName("shop"+i);	
+			shops.add(shop);
+		}	
+	}
+
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
@@ -46,11 +52,4 @@ public class Application {
 			log.info(shop.toString());
 		};
 	}
-	
-//    @Bean
-//    public EmbeddedServletContainerCustomizer containerCustomizer() {
-//        return (container -> {
-//            container.setPort(8012);
-//        });
-//    }
 }
