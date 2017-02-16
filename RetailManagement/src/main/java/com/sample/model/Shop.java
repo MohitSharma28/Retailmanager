@@ -11,8 +11,8 @@ public class Shop {
     Address shopAddress;
     @JsonProperty(value="latitude")
     double latitude;
-    @JsonProperty(value="longitude")
-    double longitude;
+    @JsonProperty(value="longtitude")
+    double longtitude;
     
     
 	public String getShopName() {
@@ -30,14 +30,14 @@ public class Shop {
 	public double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(long latitude) {
-		this.latitude = latitude;
+	public void setLatitude(double lattitude) {
+		this.latitude = lattitude;
 	}
-	public double getLongitude() {
-		return longitude;
+	public double getLongtitude() {
+		return longtitude;
 	}
-	public void setLongitude(long longitude) {
-		this.longitude = longitude;
+	public void setLongtitude(double longtitude2) {
+		this.longtitude = longtitude2;
 	}
     
     

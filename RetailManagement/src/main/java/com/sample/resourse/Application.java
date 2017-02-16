@@ -32,7 +32,7 @@ public class Application {
 			add.setNumber(i);
 			add.setPostCode(111057+i);
 			shop.setLatitude(11111+i);
-			shop.setLongitude(22222+i);
+			shop.setLongtitude(22222+i);
 			shop.setShopAddress(add);
 			shop.setShopName("shop"+i);	
 			shops.add(shop);
